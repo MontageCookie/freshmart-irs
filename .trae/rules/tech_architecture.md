@@ -1,5 +1,13 @@
 # 技术架构与选型
 
+本项目采用 Monorepo 架构，目录结构必须遵循以下逻辑：
+- backend/
+  - Java 后端（Spring Boot）
+- frontend/
+  - Vue 前端（Vue 3 + Vite + TypeScript）
+- algorithm/
+  - Python 算法实现（scikit-learn 等）
+
 ## 后端
 - Spring Boot 3.5.x（基于 Spring Boot 3.x，JDK 17）
 - Mybatis-Plus（ORM，简化开发）
