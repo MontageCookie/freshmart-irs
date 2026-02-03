@@ -4,7 +4,7 @@
 - Spring Boot 3.5.x（基于 Spring Boot 3.x，JDK 17）
 - Mybatis-Plus（ORM，简化开发）
 - Spring Security + JWT（鉴权）
-- MySQL 8.2（数据库）
+- MySQL 8.2（使用数据库`freshmart_irs`）
 - Redis 6.2.14（缓存）
 - Knife4j OpenAPI（Swagger UI 自动生成）
 - Lombok（减少样板代码）
