@@ -129,6 +129,7 @@
 - 简述：顾客注册（默认赋予 CUSTOMER 角色）
 - 鉴权：否
 - 请求字段：`username`，`password`，`phone`（可选），`email`（可选）
+- 约束：`phone` 若传入需为中国大陆 11 位；`email` 若传入需满足邮箱格式
 - 响应字段：`id`
 
 #### POST /api/v1/auth/logout
@@ -170,7 +171,8 @@
 - 简述：创建用户（后台创建员工/顾客）
 - 鉴权：是（JWT）
 - 角色：ADMIN
-- 请求字段：`username`，`password`，`phone`，`email`，`roles[]`（可选）
+- 请求字段：`username`，`password`，`phone`（可选），`email`（可选），`roleIds[]`（必填，覆盖式分配）
+- 约束：`phone` 若传入需为中国大陆 11 位；`email` 若传入需满足邮箱格式
 - 响应字段：`id`
 
 #### PATCH /api/v1/users/{id}
@@ -181,13 +183,14 @@
   - 用户自助更新：仅允许更新自己的信息（`id` 必须等于当前登录用户）；必须提交 `currentPassword`；`username` 做唯一校验；不可自助修改 `roles/status`
   - 管理员更新：可更新用户信息；可重置密码（无需 `currentPassword`）；`username` 做唯一校验
 - 请求字段（可选集合，按场景取用）：`username`，`phone`，`email`，`currentPassword`，`newPassword`，`status`
+- 约束：`phone/email` 若传入需满足格式校验
 - 响应字段：`id`
 
 #### DELETE /api/v1/users/{id}
 - 简述：禁用用户（语义固定：status=DISABLED）
 - 鉴权：是（JWT）
 - 角色：ADMIN
-- 响应字段：`id`，`status`
+- 响应字段：`id`
 
 #### GET /api/v1/roles
 - 简述：角色列表
