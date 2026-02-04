@@ -4,6 +4,20 @@ server:
 spring:
   application:
     name: freshmart-irs-backend
+  datasource:
+    url: ${FRESHMART_DB_URL:jdbc:mysql://localhost:3306/freshmart_irs?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
+    username: ${FRESHMART_DB_USERNAME:root}
+    password: ${FRESHMART_DB_PASSWORD:root}
+  
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+auth:
+  jwt:
+    secret: ${FRESHMART_JWT_SECRET:change-me-in-env}
+    expires-seconds: 3600
 
 knife4j:
   enable: true

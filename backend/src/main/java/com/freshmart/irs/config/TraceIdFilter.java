@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.slf4j.MDC;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -21,11 +22,12 @@ public class TraceIdFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         try {
-            TraceIdHolder.getOrCreate();
+            String traceId = TraceIdHolder.getOrCreate();
+            MDC.put("traceId", traceId);
             filterChain.doFilter(request, response);
         } finally {
+            MDC.remove("traceId");
             TraceIdHolder.clear();
         }
     }
 }
-

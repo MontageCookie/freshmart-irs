@@ -125,11 +125,29 @@
 - 请求字段：`username`，`password`
 - 响应字段：`token`，`tokenType`（固定 `Bearer`），`expiresIn`（秒），`userId`，`username`，`roles[]`
 
+#### POST /api/v1/auth/register
+- 简述：顾客注册（默认赋予 CUSTOMER 角色）
+- 鉴权：否
+- 请求字段：`username`，`password`，`phone`（可选），`email`（可选）
+- 响应字段：`id`
+
+#### POST /api/v1/auth/logout
+- 简述：登出（服务端不做 Token 黑名单；用于统一前端退出动作与审计落点）
+- 鉴权：是（JWT）
+- 角色：ADMIN/STORE_MANAGER/WAREHOUSE/CASHIER/CUSTOMER
+- 响应字段：无（`data=null`）
+
 #### GET /api/v1/auth/me
 - 简述：获取当前登录用户信息
 - 鉴权：是（JWT）
 - 角色：ADMIN/STORE_MANAGER/WAREHOUSE/CASHIER/CUSTOMER
 - 响应字段：`id`，`username`，`phone`，`email`，`status`，`roles[]`
+
+#### GET /api/v1/auth/permissions
+- 简述：获取当前登录用户的角色列表（仅 roles[]）
+- 鉴权：是（JWT）
+- 角色：ADMIN/STORE_MANAGER/WAREHOUSE/CASHIER/CUSTOMER
+- 响应字段：`roles[]`
 
 ---
 
@@ -139,7 +157,7 @@
 - 简述：用户列表（后台）
 - 鉴权：是（JWT）
 - 角色：ADMIN
-- 查询字段：`keyword`（用户名/手机号模糊），`status`（0/1），分页参数
+- 查询字段：`keyword`（用户名/手机号模糊），`status`（ENABLED/DISABLED，可选），分页参数
 - 响应字段（items）：`id`，`username`，`phone`，`email`，`status`，`createdAt`
 
 #### GET /api/v1/users/{id}
@@ -156,11 +174,14 @@
 - 响应字段：`id`
 
 #### PATCH /api/v1/users/{id}
-- 简述：更新用户基础信息（不含密码）
+- 简述：更新用户信息（复用：用户自助更新 / 管理员更新与重置密码）
 - 鉴权：是（JWT）
-- 角色：ADMIN
-- 请求字段：`phone`，`email`，`status`（0/1，可选）
-- 响应字段：`id`，`status`
+- 角色：ADMIN/STORE_MANAGER/WAREHOUSE/CASHIER/CUSTOMER
+- 约束：
+  - 用户自助更新：仅允许更新自己的信息（`id` 必须等于当前登录用户）；必须提交 `currentPassword`；`username` 做唯一校验；不可自助修改 `roles/status`
+  - 管理员更新：可更新用户信息；可重置密码（无需 `currentPassword`）；`username` 做唯一校验
+- 请求字段（可选集合，按场景取用）：`username`，`phone`，`email`，`currentPassword`，`newPassword`，`status`
+- 响应字段：`id`
 
 #### DELETE /api/v1/users/{id}
 - 简述：禁用用户（语义固定：status=DISABLED）
@@ -172,14 +193,14 @@
 - 简述：角色列表
 - 鉴权：是（JWT）
 - 角色：ADMIN
-- 响应字段（items）：`id`，`code`，`name`，`status`
+- 响应字段（items）：`id`，`code`，`name`，`enabled`
 
 #### PUT /api/v1/users/{id}/roles
 - 简述：为用户分配角色（覆盖式）
 - 鉴权：是（JWT）
 - 角色：ADMIN
 - 请求字段：`roleIds[]`
-- 响应字段：`userId`，`roles[]`
+- 响应字段：`id`
 
 ---
 
@@ -421,4 +442,3 @@
 - 角色：STORE_MANAGER
 - 请求字段：`rejectReason`
 - 响应字段：`id`，`approvalStatus`（REJECTED），`approvedBy`，`approvedAt`，`rejectReason`
-

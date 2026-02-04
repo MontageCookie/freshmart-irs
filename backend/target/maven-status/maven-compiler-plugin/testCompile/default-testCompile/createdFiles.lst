@@ -1,0 +1,3 @@
+com\freshmart\irs\service\AuthServiceTest.class
+com\freshmart\irs\service\UsersServiceTest.class
+com\freshmart\irs\sql\SeedDataPasswordTest.class

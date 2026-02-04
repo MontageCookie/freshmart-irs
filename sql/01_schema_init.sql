@@ -42,9 +42,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_user_role_user_role` (`user_id`, `role_id`),
   KEY `idx_user_role_user_id` (`user_id`),
-  KEY `idx_user_role_role_id` (`role_id`),
-  CONSTRAINT `fk_user_role_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_user_role_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_user_role_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户-角色绑定（权限/菜单层面）';
 
 -- 2) 商品与库存
@@ -80,8 +78,7 @@ CREATE TABLE IF NOT EXISTS `inventory_batch` (
   UNIQUE KEY `uk_inventory_batch_product_batchno` (`product_id`, `batch_no`),
   KEY `idx_inventory_batch_product_id` (`product_id`),
   KEY `idx_inventory_batch_expiry_date` (`expiry_date`),
-  KEY `idx_inventory_batch_status` (`status`),
-  CONSTRAINT `fk_inventory_batch_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_inventory_batch_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='库存批次（含效期）';
 
 CREATE TABLE IF NOT EXISTS `inventory_ledger` (
@@ -101,9 +98,7 @@ CREATE TABLE IF NOT EXISTS `inventory_ledger` (
   KEY `idx_inventory_ledger_batch_id` (`inventory_batch_id`),
   KEY `idx_inventory_ledger_change_type` (`change_type`),
   KEY `idx_inventory_ledger_event_time` (`event_time`),
-  KEY `idx_inventory_ledger_source` (`source_type`, `source_id`),
-  CONSTRAINT `fk_inventory_ledger_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_inventory_ledger_batch` FOREIGN KEY (`inventory_batch_id`) REFERENCES `inventory_batch` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_inventory_ledger_source` (`source_type`, `source_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='库存流水（批次可追溯）';
 
 -- 3) 入库链路
@@ -120,8 +115,7 @@ CREATE TABLE IF NOT EXISTS `stock_in_order` (
   UNIQUE KEY `uk_stock_in_order_biz_no` (`biz_no`),
   KEY `idx_stock_in_order_created_by` (`created_by`),
   KEY `idx_stock_in_order_status` (`status`),
-  KEY `idx_stock_in_order_received_at` (`received_at`),
-  CONSTRAINT `fk_stock_in_order_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_stock_in_order_received_at` (`received_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='入库单';
 
 CREATE TABLE IF NOT EXISTS `stock_in_item` (
@@ -138,10 +132,7 @@ CREATE TABLE IF NOT EXISTS `stock_in_item` (
   PRIMARY KEY (`id`),
   KEY `idx_stock_in_item_order_id` (`stock_in_order_id`),
   KEY `idx_stock_in_item_product_id` (`product_id`),
-  KEY `idx_stock_in_item_batch_id` (`inventory_batch_id`),
-  CONSTRAINT `fk_stock_in_item_order` FOREIGN KEY (`stock_in_order_id`) REFERENCES `stock_in_order` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_stock_in_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_stock_in_item_batch` FOREIGN KEY (`inventory_batch_id`) REFERENCES `inventory_batch` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_stock_in_item_batch_id` (`inventory_batch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='入库明细';
 
 -- 4) 销售与收银链路
@@ -158,8 +149,7 @@ CREATE TABLE IF NOT EXISTS `sale_order` (
   UNIQUE KEY `uk_sale_order_biz_no` (`biz_no`),
   KEY `idx_sale_order_cashier_id` (`cashier_id`),
   KEY `idx_sale_order_status` (`status`),
-  KEY `idx_sale_order_sale_time` (`sale_time`),
-  CONSTRAINT `fk_sale_order_cashier` FOREIGN KEY (`cashier_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_sale_order_sale_time` (`sale_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='销售单（收银）';
 
 CREATE TABLE IF NOT EXISTS `sale_item` (
@@ -175,10 +165,7 @@ CREATE TABLE IF NOT EXISTS `sale_item` (
   PRIMARY KEY (`id`),
   KEY `idx_sale_item_order_id` (`sale_order_id`),
   KEY `idx_sale_item_product_id` (`product_id`),
-  KEY `idx_sale_item_batch_id` (`inventory_batch_id`),
-  CONSTRAINT `fk_sale_item_order` FOREIGN KEY (`sale_order_id`) REFERENCES `sale_order` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_sale_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_sale_item_batch` FOREIGN KEY (`inventory_batch_id`) REFERENCES `inventory_batch` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_sale_item_batch_id` (`inventory_batch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='销售明细（收银）';
 
 -- 5) 顾客购买链路（含模拟支付）
@@ -190,8 +177,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_cart_user_id` (`user_id`),
-  KEY `idx_cart_status` (`status`),
-  CONSTRAINT `fk_cart_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_cart_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='购物车（每用户一车）';
 
 CREATE TABLE IF NOT EXISTS `cart_item` (
@@ -204,9 +190,7 @@ CREATE TABLE IF NOT EXISTS `cart_item` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_cart_item_cart_product` (`cart_id`, `product_id`),
   KEY `idx_cart_item_cart_id` (`cart_id`),
-  KEY `idx_cart_item_product_id` (`product_id`),
-  CONSTRAINT `fk_cart_item_cart` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_cart_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_cart_item_product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='购物车明细';
 
 CREATE TABLE IF NOT EXISTS `customer_order` (
@@ -224,8 +208,7 @@ CREATE TABLE IF NOT EXISTS `customer_order` (
   UNIQUE KEY `uk_customer_order_biz_no` (`biz_no`),
   KEY `idx_customer_order_user_id` (`user_id`),
   KEY `idx_customer_order_status` (`order_status`),
-  KEY `idx_customer_order_placed_at` (`placed_at`),
-  CONSTRAINT `fk_customer_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_customer_order_placed_at` (`placed_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='顾客订单';
 
 CREATE TABLE IF NOT EXISTS `customer_order_item` (
@@ -241,10 +224,7 @@ CREATE TABLE IF NOT EXISTS `customer_order_item` (
   PRIMARY KEY (`id`),
   KEY `idx_customer_order_item_order_id` (`customer_order_id`),
   KEY `idx_customer_order_item_product_id` (`product_id`),
-  KEY `idx_customer_order_item_batch_id` (`inventory_batch_id`),
-  CONSTRAINT `fk_customer_order_item_order` FOREIGN KEY (`customer_order_id`) REFERENCES `customer_order` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_customer_order_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_customer_order_item_batch` FOREIGN KEY (`inventory_batch_id`) REFERENCES `inventory_batch` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_customer_order_item_batch_id` (`inventory_batch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='顾客订单明细（批次可追溯）';
 
 CREATE TABLE IF NOT EXISTS `payment` (
@@ -259,8 +239,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_payment_order_id` (`customer_order_id`),
   KEY `idx_payment_status` (`pay_status`),
-  KEY `idx_payment_paid_at` (`paid_at`),
-  CONSTRAINT `fk_payment_order` FOREIGN KEY (`customer_order_id`) REFERENCES `customer_order` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_payment_paid_at` (`paid_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='模拟支付记录（驱动订单状态）';
 
 -- 6) 预警
@@ -281,9 +260,7 @@ CREATE TABLE IF NOT EXISTS `alert` (
   KEY `idx_alert_status` (`alert_status`),
   KEY `idx_alert_product_id` (`product_id`),
   KEY `idx_alert_batch_id` (`inventory_batch_id`),
-  KEY `idx_alert_triggered_at` (`triggered_at`),
-  CONSTRAINT `fk_alert_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_alert_batch` FOREIGN KEY (`inventory_batch_id`) REFERENCES `inventory_batch` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_alert_triggered_at` (`triggered_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='预警记录（安全库存/临期/过期）';
 
 CREATE TABLE IF NOT EXISTS `alert_action` (
@@ -298,9 +275,7 @@ CREATE TABLE IF NOT EXISTS `alert_action` (
   PRIMARY KEY (`id`),
   KEY `idx_alert_action_alert_id` (`alert_id`),
   KEY `idx_alert_action_actor_user_id` (`actor_user_id`),
-  KEY `idx_alert_action_time` (`action_time`),
-  CONSTRAINT `fk_alert_action_alert` FOREIGN KEY (`alert_id`) REFERENCES `alert` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_alert_action_actor` FOREIGN KEY (`actor_user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_alert_action_time` (`action_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='预警处置流水';
 
 -- 7) 预测与补货（建议采购）
@@ -318,8 +293,7 @@ CREATE TABLE IF NOT EXISTS `replenishment_suggestion` (
   UNIQUE KEY `uk_replenishment_suggestion_biz_no` (`biz_no`),
   KEY `idx_replenishment_suggestion_status` (`approval_status`),
   KEY `idx_replenishment_suggestion_generated_at` (`generated_at`),
-  KEY `idx_replenishment_suggestion_approved_by` (`approved_by`),
-  CONSTRAINT `fk_replenishment_suggestion_approved_by` FOREIGN KEY (`approved_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_replenishment_suggestion_approved_by` (`approved_by`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='建议采购单（审批信息单表字段冻结）';
 
 CREATE TABLE IF NOT EXISTS `replenishment_item` (
@@ -335,7 +309,5 @@ CREATE TABLE IF NOT EXISTS `replenishment_item` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_replenishment_item_suggestion_id` (`replenishment_suggestion_id`),
-  KEY `idx_replenishment_item_product_id` (`product_id`),
-  CONSTRAINT `fk_replenishment_item_suggestion` FOREIGN KEY (`replenishment_suggestion_id`) REFERENCES `replenishment_suggestion` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  CONSTRAINT `fk_replenishment_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT
+  KEY `idx_replenishment_item_product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='建议采购明细';

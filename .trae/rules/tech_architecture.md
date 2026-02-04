@@ -1,3 +1,6 @@
+---
+alwaysApply: false
+---
 # 技术架构与选型
 
 本项目采用 Monorepo 架构，目录结构必须遵循以下逻辑：

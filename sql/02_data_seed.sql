@@ -28,11 +28,11 @@ SELECT `id` INTO @role_customer FROM `role` WHERE `code`='CUSTOMER';
 -- =========================
 INSERT INTO `user` (`username`, `password_hash`, `phone`, `email`, `status`)
 VALUES
-  ('admin', 'seed_hash_admin', '13800000001', 'admin@freshmart.test', 1),
-  ('manager', 'seed_hash_manager', '13800000002', 'manager@freshmart.test', 1),
-  ('warehouse', 'seed_hash_warehouse', '13800000003', 'warehouse@freshmart.test', 1),
-  ('cashier', 'seed_hash_cashier', '13800000004', 'cashier@freshmart.test', 1),
-  ('customer1', 'seed_hash_customer1', '13800000005', 'customer1@freshmart.test', 1)
+  ('admin', '$2a$12$HFLQ6bK36ICmXmz6w9cHMeR6FhSwqimABxOxirxOqVHTXjLAcGOva', '13800000001', 'admin@freshmart.test', 1),
+  ('manager', '$2a$12$HFLQ6bK36ICmXmz6w9cHMeR6FhSwqimABxOxirxOqVHTXjLAcGOva', '13800000002', 'manager@freshmart.test', 1),
+  ('warehouse', '$2a$12$HFLQ6bK36ICmXmz6w9cHMeR6FhSwqimABxOxirxOqVHTXjLAcGOva', '13800000003', 'warehouse@freshmart.test', 1),
+  ('cashier', '$2a$12$HFLQ6bK36ICmXmz6w9cHMeR6FhSwqimABxOxirxOqVHTXjLAcGOva', '13800000004', 'cashier@freshmart.test', 1),
+  ('customer1', '$2a$12$HFLQ6bK36ICmXmz6w9cHMeR6FhSwqimABxOxirxOqVHTXjLAcGOva', '13800000005', 'customer1@freshmart.test', 1)
 ON DUPLICATE KEY UPDATE
   `password_hash` = VALUES(`password_hash`),
   `phone` = VALUES(`phone`),

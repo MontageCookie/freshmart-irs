@@ -1,3 +1,6 @@
+---
+alwaysApply: false
+---
 # 业务边界
 
 - 本工程为本科毕设《基于 Spring Boot + Vue 和 时间序列分析 的生鲜销售系统及智能补货系统》项目开发
