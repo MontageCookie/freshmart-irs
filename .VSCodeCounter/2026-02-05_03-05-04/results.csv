@@ -1,0 +1,28 @@
+"filename", "language", "TypeScript", "JSON", "JSON with Comments", "Markdown", "vue", "CSS", "XML", "HTML", "comment", "blank", "total"
+"d:\Code\freshmart-irs\frontend\README.md", "Markdown", 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 6
+"d:\Code\freshmart-irs\frontend\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 13, 0, 1, 14
+"d:\Code\freshmart-irs\frontend\package-lock.json", "JSON", 0, 1723, 0, 0, 0, 0, 0, 0, 0, 1, 1724
+"d:\Code\freshmart-irs\frontend\package.json", "JSON", 0, 25, 0, 0, 0, 0, 0, 0, 0, 1, 26
+"d:\Code\freshmart-irs\frontend\public\vite.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"d:\Code\freshmart-irs\frontend\src\App.vue", "vue", 0, 0, 0, 0, 124, 0, 0, 0, 0, 20, 144
+"d:\Code\freshmart-irs\frontend\src\api\apiClient.ts", "TypeScript", 150, 0, 0, 0, 0, 0, 0, 0, 3, 25, 178
+"d:\Code\freshmart-irs\frontend\src\api\authApi.ts", "TypeScript", 39, 0, 0, 0, 0, 0, 0, 0, 0, 6, 45
+"d:\Code\freshmart-irs\frontend\src\api\types.ts", "TypeScript", 35, 0, 0, 0, 0, 0, 0, 0, 0, 5, 40
+"d:\Code\freshmart-irs\frontend\src\api\usersApi.ts", "TypeScript", 20, 0, 0, 0, 0, 0, 0, 0, 0, 3, 23
+"d:\Code\freshmart-irs\frontend\src\assets\vue.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"d:\Code\freshmart-irs\frontend\src\auth\authStore.ts", "TypeScript", 42, 0, 0, 0, 0, 0, 0, 0, 3, 9, 54
+"d:\Code\freshmart-irs\frontend\src\auth\token.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 4, 15
+"d:\Code\freshmart-irs\frontend\src\components\HelloWorld.vue", "vue", 0, 0, 0, 0, 35, 0, 0, 0, 0, 7, 42
+"d:\Code\freshmart-irs\frontend\src\components\ToastHost.vue", "vue", 0, 0, 0, 0, 56, 0, 0, 0, 0, 10, 66
+"d:\Code\freshmart-irs\frontend\src\main.ts", "TypeScript", 23, 0, 0, 0, 0, 0, 0, 0, 0, 5, 28
+"d:\Code\freshmart-irs\frontend\src\pages\LoginPage.vue", "vue", 0, 0, 0, 0, 145, 0, 0, 0, 0, 27, 172
+"d:\Code\freshmart-irs\frontend\src\pages\MePage.vue", "vue", 0, 0, 0, 0, 125, 0, 0, 0, 0, 24, 149
+"d:\Code\freshmart-irs\frontend\src\pages\UsersPage.vue", "vue", 0, 0, 0, 0, 206, 0, 0, 0, 0, 42, 248
+"d:\Code\freshmart-irs\frontend\src\router\index.ts", "TypeScript", 47, 0, 0, 0, 0, 0, 0, 0, 0, 10, 57
+"d:\Code\freshmart-irs\frontend\src\style.css", "CSS", 0, 0, 0, 0, 0, 21, 0, 0, 0, 5, 26
+"d:\Code\freshmart-irs\frontend\src\ui\toast.ts", "TypeScript", 25, 0, 0, 0, 0, 0, 0, 0, 0, 8, 33
+"d:\Code\freshmart-irs\frontend\tsconfig.app.json", "JSON", 0, 18, 0, 0, 0, 0, 0, 0, 1, 2, 21
+"d:\Code\freshmart-irs\frontend\tsconfig.json", "JSON with Comments", 0, 0, 7, 0, 0, 0, 0, 0, 0, 1, 8
+"d:\Code\freshmart-irs\frontend\tsconfig.node.json", "JSON", 0, 22, 0, 0, 0, 0, 0, 0, 2, 3, 27
+"d:\Code\freshmart-irs\frontend\vite.config.ts", "TypeScript", 11, 0, 0, 0, 0, 0, 0, 0, 1, 2, 14
+"Total", "-", 403, 1788, 7, 3, 691, 21, 2, 13, 10, 224, 3162

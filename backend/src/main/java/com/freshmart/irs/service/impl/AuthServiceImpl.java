@@ -47,8 +47,7 @@ public class AuthServiceImpl implements AuthService {
             RolesService rolesService,
             JwtService jwtService,
             PasswordPolicy passwordPolicy,
-            AuditService auditService
-    ) {
+            AuditService auditService) {
         this.userMapper = userMapper;
         this.userRoleService = userRoleService;
         this.rolesService = rolesService;
@@ -68,7 +67,8 @@ public class AuthServiceImpl implements AuthService {
             if (user.getStatus() == null || user.getStatus() != 1) {
                 throw new BizException(ErrorCode.FORBIDDEN, "用户已被禁用");
             }
-            boolean verified = BCrypt.verifyer().verify(request.password().toCharArray(), user.getPasswordHash()).verified;
+            boolean verified = BCrypt.verifyer().verify(request.password().toCharArray(),
+                    user.getPasswordHash()).verified;
             if (!verified) {
                 throw new BizException(ErrorCode.UNAUTHORIZED, "用户名或密码错误");
             }
@@ -76,7 +76,8 @@ public class AuthServiceImpl implements AuthService {
             List<String> roleCodes = userRoleService.getRoleCodesByUserId(user.getId());
             String token = jwtService.issueToken(user.getId(), user.getUsername(), roleCodes);
             auditService.record("AUTH_LOGIN", "USER", user.getId(), true, null);
-            return new LoginResponse(token, "Bearer", jwtService.getExpiresSeconds(), user.getId(), user.getUsername(), roleCodes);
+            return new LoginResponse(token, "Bearer", jwtService.getExpiresSeconds(), user.getId(), user.getUsername(),
+                    roleCodes);
         } catch (BizException ex) {
             auditService.record("AUTH_LOGIN", "USER", null, false, ex.getMessage());
             throw ex;
@@ -129,23 +130,21 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public MeResponse me() {
         AuthContext ctx = AuthContextHolder.getRequired();
-        UserEntity statusOnly = userMapper.selectOne(new QueryWrapper<UserEntity>()
-                .select("id", "status")
-                .eq("id", ctx.userId()));
-        if (statusOnly == null) {
+        // 查询完整用户信息（排除密码字段）
+        UserEntity user = userMapper.selectOne(new QueryWrapper<UserEntity>().eq("id", ctx.userId()));
+        if (user == null) {
             throw new BizException(ErrorCode.NOT_FOUND, "用户不存在");
         }
-        if (statusOnly.getStatus() == null || statusOnly.getStatus() != 1) {
+        if (user.getStatus() == null || user.getStatus() != 1) {
             throw new BizException(ErrorCode.FORBIDDEN, "用户已被禁用");
         }
         return new MeResponse(
-                ctx.userId(),
-                ctx.username(),
-                null,
-                null,
+                user.getId(),
+                user.getUsername(),
+                user.getPhone(),
+                user.getEmail(),
                 UserStatus.ENABLED,
-                ctx.roles()
-        );
+                ctx.roles());
     }
 
     @Override

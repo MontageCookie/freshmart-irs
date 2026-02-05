@@ -174,6 +174,24 @@ public class UsersServiceImpl implements UsersService {
                 throw new BizException(ErrorCode.FORBIDDEN, "无权限修改用户状态");
             }
 
+            boolean isAdminUpdatingOther = isAdmin && !isSelf;
+            boolean hasAnyChange =
+                    (request.username() != null && !request.username().isBlank()) ||
+                            (request.phone() != null && !request.phone().isBlank()) ||
+                            (request.email() != null && !request.email().isBlank()) ||
+                            request.status() != null ||
+                            (request.newPassword() != null && !request.newPassword().isBlank());
+
+            if (!isAdminUpdatingOther && hasAnyChange) {
+                if (request.currentPassword() == null || request.currentPassword().isBlank()) {
+                    throw new BizException(ErrorCode.PARAM_INVALID, "currentPassword 不能为空");
+                }
+                boolean verified = BCrypt.verifyer().verify(request.currentPassword().toCharArray(), user.getPasswordHash()).verified;
+                if (!verified) {
+                    throw new BizException(ErrorCode.PARAM_INVALID, "当前密码错误");
+                }
+            }
+
             if (request.username() != null && !request.username().isBlank()) {
                 if (!request.username().equals(user.getUsername())) {
                     Long exists = userMapper.selectCount(new LambdaQueryWrapper<UserEntity>()
@@ -201,15 +219,6 @@ public class UsersServiceImpl implements UsersService {
 
             if (request.newPassword() != null && !request.newPassword().isBlank()) {
                 passwordPolicy.validateOrThrow(request.newPassword());
-                if (!isAdmin) {
-                    if (request.currentPassword() == null || request.currentPassword().isBlank()) {
-                        throw new BizException(ErrorCode.PARAM_INVALID, "currentPassword 不能为空");
-                    }
-                    boolean verified = BCrypt.verifyer().verify(request.currentPassword().toCharArray(), user.getPasswordHash()).verified;
-                    if (!verified) {
-                        throw new BizException(ErrorCode.PARAM_INVALID, "当前密码错误");
-                    }
-                }
                 user.setPasswordHash(BCrypt.withDefaults().hashToString(12, request.newPassword().toCharArray()));
             }
 

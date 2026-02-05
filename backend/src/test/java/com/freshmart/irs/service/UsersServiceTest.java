@@ -91,4 +91,56 @@ class UsersServiceTest {
 
         Assertions.assertEquals(2L, usersService.update(2L, request));
     }
+
+    @Test
+    void update_selfChangeProfileWithoutCurrentPassword_returnsParamInvalid() {
+        UsersService usersService = new UsersServiceImpl(userMapper, userRoleService, passwordPolicy, auditService);
+
+        AuthContextHolder.set(new AuthContext(1L, "customer1", List.of("CUSTOMER")));
+
+        UserEntity user = new UserEntity();
+        user.setId(1L);
+        user.setUsername("customer1");
+        user.setStatus(1);
+        user.setPasswordHash(BCrypt.withDefaults().hashToString(12, "aaaa1111".toCharArray()));
+        when(userMapper.selectById(1L)).thenReturn(user);
+
+        UserUpdateRequest request = new UserUpdateRequest(
+                "customer1_new",
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        BizException ex = Assertions.assertThrows(BizException.class, () -> usersService.update(1L, request));
+        Assertions.assertEquals(ErrorCode.PARAM_INVALID, ex.getErrorCode());
+    }
+
+    @Test
+    void update_adminSelfChangePasswordWithoutCurrentPassword_returnsParamInvalid() {
+        UsersService usersService = new UsersServiceImpl(userMapper, userRoleService, passwordPolicy, auditService);
+
+        AuthContextHolder.set(new AuthContext(1L, "admin", List.of("ADMIN")));
+
+        UserEntity user = new UserEntity();
+        user.setId(1L);
+        user.setUsername("admin");
+        user.setStatus(1);
+        user.setPasswordHash(BCrypt.withDefaults().hashToString(12, "aaaa1111".toCharArray()));
+        when(userMapper.selectById(1L)).thenReturn(user);
+
+        UserUpdateRequest request = new UserUpdateRequest(
+                null,
+                null,
+                null,
+                null,
+                "bbbb1111",
+                null
+        );
+
+        BizException ex = Assertions.assertThrows(BizException.class, () -> usersService.update(1L, request));
+        Assertions.assertEquals(ErrorCode.PARAM_INVALID, ex.getErrorCode());
+    }
 }

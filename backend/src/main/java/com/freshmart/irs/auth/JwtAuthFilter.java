@@ -33,8 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
         try {
             if (isAnonymousAllowed(request)) {
                 filterChain.doFilter(request, response);
@@ -117,7 +116,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         return token.isBlank() ? null : token;
     }
 
-    private void writeError(HttpServletResponse response, int httpStatus, ErrorCode errorCode, String message) throws IOException {
+    private void writeError(HttpServletResponse response, int httpStatus, ErrorCode errorCode, String message)
+            throws IOException {
         response.setStatus(httpStatus);
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

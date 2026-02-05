@@ -58,6 +58,7 @@ class AuthServiceTest {
 
         UserEntity statusOnly = new UserEntity();
         statusOnly.setId(1L);
+        statusOnly.setUsername("admin");
         statusOnly.setStatus(1);
         when(userMapper.selectOne(ArgumentMatchers.<Wrapper<UserEntity>>any())).thenReturn(statusOnly);
 

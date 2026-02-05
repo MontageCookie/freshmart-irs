@@ -66,7 +66,7 @@ public class UsersController {
         return ApiResponse.ok(usersService.get(id));
     }
 
-    @Operation(summary = "更新用户（PATCH）", description = "鉴权：JWT；管理员可更新任意用户，自助仅可更新自己；自助修改密码需提供 currentPassword；phone/email 会做格式校验")
+    @Operation(summary = "更新用户（PATCH）", description = "鉴权：JWT；管理员可更新任意用户；管理员更新他人用户时不要求 currentPassword；其余场景（包含管理员自助/普通用户自助）如有任何更新均需提供 currentPassword；phone/email 会做格式校验")
     @SecurityRequirement(name = OpenApiConfig.SECURITY_SCHEME_BEARER)
     @PatchMapping("/{id}")
     public ApiResponse<IdResponse> update(@PathVariable long id, @Valid @RequestBody UserUpdateRequest request) {

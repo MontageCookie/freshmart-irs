@@ -1,0 +1,39 @@
+# Summary
+
+Date : 2026-02-05 03:05:04
+
+Directory d:\\Code\\freshmart-irs\\frontend
+
+Total : 26 files,  2928 codes, 10 comments, 224 blanks, all 3162 lines
+
+Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
+
+## Languages
+| language | files | code | comment | blank | total |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| JSON | 4 | 1,788 | 3 | 7 | 1,798 |
+| vue | 6 | 691 | 0 | 130 | 821 |
+| TypeScript | 10 | 403 | 7 | 77 | 487 |
+| CSS | 1 | 21 | 0 | 5 | 26 |
+| HTML | 1 | 13 | 0 | 1 | 14 |
+| JSON with Comments | 1 | 7 | 0 | 1 | 8 |
+| Markdown | 1 | 3 | 0 | 3 | 6 |
+| XML | 2 | 2 | 0 | 0 | 2 |
+
+## Directories
+| path | files | code | comment | blank | total |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| . | 26 | 2,928 | 10 | 224 | 3,162 |
+| . (Files) | 8 | 1,822 | 4 | 14 | 1,840 |
+| public | 1 | 1 | 0 | 0 | 1 |
+| src | 17 | 1,105 | 6 | 210 | 1,321 |
+| src (Files) | 3 | 168 | 0 | 30 | 198 |
+| src\\api | 4 | 244 | 3 | 39 | 286 |
+| src\\assets | 1 | 1 | 0 | 0 | 1 |
+| src\\auth | 2 | 53 | 3 | 13 | 69 |
+| src\\components | 2 | 91 | 0 | 17 | 108 |
+| src\\pages | 3 | 476 | 0 | 93 | 569 |
+| src\\router | 1 | 47 | 0 | 10 | 57 |
+| src\\ui | 1 | 25 | 0 | 8 | 33 |
+
+Summary / [Details](details.md) / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
