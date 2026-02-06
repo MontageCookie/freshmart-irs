@@ -1,6 +1,11 @@
 export type RoleCode = 'ADMIN' | 'STORE_MANAGER' | 'WAREHOUSE' | 'CASHIER' | 'CUSTOMER'
 
-const STAFF_ROLES = new Set<RoleCode>(['ADMIN', 'STORE_MANAGER', 'WAREHOUSE', 'CASHIER'])
+const ADMIN_CONSOLE_ROLES = new Set<RoleCode>(['ADMIN', 'STORE_MANAGER', 'WAREHOUSE'])
+
+export function isCashier(roles: string[] | null | undefined): boolean {
+  if (!roles || roles.length === 0) return false
+  return roles.includes('CASHIER')
+}
 
 export function canAccessCustomerPortal(roles: string[] | null | undefined): boolean {
   if (!roles || roles.length === 0) return false
@@ -9,5 +14,5 @@ export function canAccessCustomerPortal(roles: string[] | null | undefined): boo
 
 export function canAccessAdminConsole(roles: string[] | null | undefined): boolean {
   if (!roles || roles.length === 0) return false
-  return roles.some((r) => STAFF_ROLES.has(r as RoleCode))
+  return roles.some((r) => ADMIN_CONSOLE_ROLES.has(r as RoleCode))
 }

@@ -30,10 +30,12 @@ export function isAuthInvalidError(err: unknown): err is ApiError {
   if (!(err instanceof ApiError)) {
     return false
   }
-  return (
-    err.code === 40100 ||
-    err.code === 40300 ||
-    err.httpStatus === 401 ||
-    err.httpStatus === 403
-  )
+  return err.code === 40100 || err.httpStatus === 401
+}
+
+export function isForbiddenError(err: unknown): err is ApiError {
+  if (!(err instanceof ApiError)) {
+    return false
+  }
+  return err.code === 40300 || err.httpStatus === 403
 }

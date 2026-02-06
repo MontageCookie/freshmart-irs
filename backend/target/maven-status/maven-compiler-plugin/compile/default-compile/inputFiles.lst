@@ -47,7 +47,9 @@ D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\customerorder\
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\customerorder\CustomerOrderItemResponse.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\customerorder\CustomerOrderListItemResponse.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\inventory\InventoryBatchListItemResponse.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\inventory\InventoryBatchSnapshotResponse.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\inventory\InventoryLedgerListItemResponse.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\inventory\InventorySnapshotItemResponse.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\payment\CustomerOrderPaymentRequest.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\payment\CustomerOrderPaymentResponse.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\payment\PaymentDetailResponse.java
@@ -83,6 +85,9 @@ D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\user\UserListI
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\user\UserRolesUpdateRequest.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\dto\user\UserUpdateRequest.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\AuditEventEntity.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\InventoryBatchEntity.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\InventoryLedgerEntity.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\ProductEntity.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\RoleEntity.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\UserEntity.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\entity\UserRoleEntity.java
@@ -94,6 +99,9 @@ D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\enums\Replenishmen
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\enums\UserStatus.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\FreshmartIrsBackendApplication.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\AuditEventMapper.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\InventoryBatchMapper.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\InventoryLedgerMapper.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\ProductMapper.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\RoleMapper.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\UserMapper.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\mapper\UserRoleMapper.java
@@ -101,11 +109,15 @@ D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\AuditServi
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\AuthService.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\AuditServiceImpl.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\AuthServiceImpl.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\InventoryServiceImpl.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\PasswordPolicyImpl.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\ProductsServiceImpl.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\RolesServiceImpl.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\UserRoleServiceImpl.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\impl\UsersServiceImpl.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\InventoryService.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\PasswordPolicy.java
+D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\ProductsService.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\RolesService.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\UserRoleService.java
 D:\Code\freshmart-irs\backend\src\main\java\com\freshmart\irs\service\UsersService.java

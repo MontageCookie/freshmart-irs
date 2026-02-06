@@ -85,7 +85,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return true;
         }
 
-        return "GET".equals(method) && path.startsWith("/api/v1/products");
+        // return "GET".equals(method) && path.startsWith("/api/v1/products");
+        return false;
     }
 
     private boolean isAdminOnlyEndpoint(HttpServletRequest request) {

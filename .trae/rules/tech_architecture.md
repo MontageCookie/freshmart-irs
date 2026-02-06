@@ -12,7 +12,7 @@ alwaysApply: false
   - Python 算法实现（scikit-learn 等）
 
 ## 后端
-- Spring Boot 3.5.x（基于 Spring Boot 3.x，JDK 17）
+- Spring Boot 3.3.4
 - Mybatis-Plus（ORM，简化开发）
 - Spring Security + JWT（鉴权）
 - MySQL 8.2（使用数据库`freshmart_irs`）

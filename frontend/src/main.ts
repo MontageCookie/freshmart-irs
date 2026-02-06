@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
+import 'element-plus/dist/index.css'
 import App from './App.vue'
+import ElementPlus from 'element-plus'
 
 import { setAuthInvalidHandler, setErrorNotifier } from '@/api/apiClient'
 import { ApiError, isAuthInvalidError } from '@/api/types'
@@ -18,10 +20,13 @@ setAuthInvalidHandler((err: ApiError) => {
     return
   }
   clearSession()
-  const redirect = router.currentRoute.value.fullPath
-  if (router.currentRoute.value.name !== 'login') {
-    router.replace({ name: 'login', query: { redirect } })
+  const currentRoute = router.currentRoute.value
+  const isCustomerArea = currentRoute.path === '/c' || currentRoute.path.startsWith('/c/')
+  const redirect = currentRoute.fullPath
+  const loginRouteName = isCustomerArea ? 'cLogin' : 'login'
+  if (currentRoute.name !== loginRouteName) {
+    router.replace({ name: loginRouteName, query: { redirect } })
   }
 })
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(ElementPlus).mount('#app')

@@ -37,7 +37,7 @@ async function onSubmit() {
     const me = await refreshMe({ force: true })
     if (!canAccessAdminConsole(me?.roles)) {
       clearSession()
-      errorText.value = '当前账号无权限登录管理端，请使用顾客端入口 /c/login'
+      errorText.value = '无权进入管理后台'
       return
     }
     const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/me'

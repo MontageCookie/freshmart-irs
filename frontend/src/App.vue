@@ -5,6 +5,7 @@ import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 import { logout } from '@/api/authApi'
 import { clearSession, useAuthState } from '@/auth/authStore'
 import { getToken } from '@/auth/token'
+import { canAccessCustomerPortal } from '@/auth/roleGuards'
 import ToastHost from '@/components/ToastHost.vue'
 
 const router = useRouter()
@@ -14,6 +15,10 @@ const hasToken = computed(() => Boolean(getToken()))
 const displayName = computed(() => authState.me?.username || '未登录')
 const rolesText = computed(() => (authState.me?.roles?.length ? authState.me.roles.join(', ') : '-'))
 const canSeeUsers = computed(() => Boolean(authState.me?.roles?.includes('ADMIN')))
+const canSeeB2Modules = computed(
+  () => Boolean(authState.me?.roles?.includes('STORE_MANAGER') || authState.me?.roles?.includes('WAREHOUSE')),
+)
+const canSeeCustomerMe = computed(() => canAccessCustomerPortal(authState.me?.roles))
 const isCustomerArea = computed(() => route.path === '/c' || route.path.startsWith('/c/'))
 const brandText = computed(() => (isCustomerArea.value ? 'Freshmart IRS 顾客端' : 'Freshmart IRS 管理端'))
 
@@ -39,9 +44,21 @@ async function onLogout() {
     <header class="topbar">
       <div class="brand">{{ brandText }}</div>
       <nav class="nav">
-        <RouterLink v-if="isCustomerArea" class="nav__link" to="/c/me">/c/me</RouterLink>
-        <RouterLink v-else class="nav__link" to="/me">/me</RouterLink>
-        <RouterLink v-if="!isCustomerArea && canSeeUsers" class="nav__link" to="/users">/users</RouterLink>
+        <template v-if="isCustomerArea">
+          <RouterLink class="nav__link" to="/c/products">/c/products</RouterLink>
+          <RouterLink v-if="hasToken && canSeeCustomerMe" class="nav__link" to="/c/me">/c/me</RouterLink>
+          <RouterLink v-if="!hasToken" class="nav__link" to="/c/login">/c/login</RouterLink>
+          <RouterLink v-if="!hasToken" class="nav__link" to="/c/register">/c/register</RouterLink>
+        </template>
+        <template v-else>
+          <RouterLink class="nav__link" to="/me">/me</RouterLink>
+          <RouterLink v-if="hasToken && canSeeB2Modules" class="nav__link" to="/products">/products</RouterLink>
+          <RouterLink v-if="hasToken && canSeeB2Modules" class="nav__link" to="/inventory">/inventory</RouterLink>
+          <RouterLink v-if="hasToken && canSeeB2Modules" class="nav__link" to="/inventory/ledgers">
+            /inventory/ledgers
+          </RouterLink>
+          <RouterLink v-if="canSeeUsers" class="nav__link" to="/users">/users</RouterLink>
+        </template>
       </nav>
       <div class="session">
         <div class="session__meta">

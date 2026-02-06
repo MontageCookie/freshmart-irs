@@ -12,7 +12,7 @@ public record ProductDetailResponse(
         @Schema(description = "计量单位", example = "kg") String unit,
         @Schema(description = "单价（销售价）", example = "12.50") BigDecimal price,
         @Schema(description = "安全库存阈值", example = "20") int safetyStockQty,
-        @Schema(description = "状态", allowableValues = {"ON_SALE", "OFF_SALE"}) ProductStatus status
+        @Schema(description = "状态", allowableValues = {"ON_SALE", "OFF_SALE"}) ProductStatus status,
+        @Schema(description = "可售数量（AVAILABLE 且未过期）", example = "80") int availableQty
 ) {
 }
-
