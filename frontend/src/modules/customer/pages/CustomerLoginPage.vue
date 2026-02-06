@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
 
-import { login } from '@/api/authApi'
+import { login } from '@/modules/security/api/authApi'
 import { clearSession, refreshMe } from '@/auth/authStore'
 import { setToken } from '@/auth/token'
 import { ApiError } from '@/api/types'
@@ -37,10 +37,10 @@ async function onSubmit() {
     const me = await refreshMe({ force: true })
     if (!canAccessCustomerPortal(me?.roles)) {
       clearSession()
-      errorText.value = '当前账号无权限登录顾客端，请使用管理端入口 /login'
+      errorText.value = '当前账号无权限登录顾客端，请使用管理端入口 /manager/login'
       return
     }
-    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/c/me'
+    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/products'
     await router.replace(redirect)
   } catch (e) {
     errorText.value = formatError(e)
@@ -75,7 +75,7 @@ async function onSubmit() {
       </form>
 
       <div class="hint">
-        <div>没有账号？<RouterLink to="/c/register">去注册</RouterLink></div>
+        <div>没有账号？<RouterLink to="/customer/register">去注册</RouterLink></div>
       </div>
     </div>
   </div>

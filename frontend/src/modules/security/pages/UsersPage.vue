@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { listUsers, type UserListItemResponse } from '@/api/usersApi'
+import { listUsers, type UserListItemResponse } from '@/modules/security/api/usersApi'
 import { ApiError } from '@/api/types'
 import { hasRole, refreshMe, useAuthState } from '@/auth/authStore'
 
@@ -54,15 +54,15 @@ async function load() {
 }
 
 async function back() {
-  await router.push('/me')
+  await router.push('/manager/me')
 }
 
 async function goCreate() {
-  await router.push('/users/new')
+  await router.push('/manager/users/new')
 }
 
 async function openDetail(id: number) {
-  await router.push(`/users/${id}`)
+  await router.push(`/manager/users/${id}`)
 }
 
 async function applyFilters() {
@@ -99,9 +99,7 @@ onMounted(load)
 
     <div class="actions">
       <button class="btn btn--secondary" type="button" @click="back">返回</button>
-      <button class="btn btn--secondary" type="button" :disabled="!isAdmin" @click="goCreate">
-        创建用户
-      </button>
+      <button class="btn btn--secondary" type="button" :disabled="!isAdmin" @click="goCreate">创建用户</button>
       <button class="btn" type="button" :disabled="loading" @click="load">
         {{ loading ? '刷新中...' : '刷新' }}
       </button>
@@ -307,8 +305,7 @@ onMounted(load)
 }
 
 .mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   font-size: 12px;
 }
 

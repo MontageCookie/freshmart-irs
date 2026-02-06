@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { login } from '@/api/authApi'
+import { login } from '@/modules/security/api/authApi'
 import { clearSession, refreshMe } from '@/auth/authStore'
 import { setToken } from '@/auth/token'
 import { ApiError } from '@/api/types'
@@ -40,7 +40,7 @@ async function onSubmit() {
       errorText.value = '无权进入管理后台'
       return
     }
-    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/me'
+    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/manager/me'
     await router.replace(redirect)
   } catch (e) {
     errorText.value = formatError(e)
@@ -76,7 +76,7 @@ async function onSubmit() {
 
       <div class="hint">
         <div>种子账号示例：admin / aaaa1111</div>
-        <div>登录成功后将进入 /me</div>
+        <div>登录成功后将进入 /manager/me</div>
       </div>
     </div>
   </div>

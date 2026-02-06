@@ -1,4 +1,4 @@
-import { apiRequest } from './apiClient'
+import { apiRequest } from '@/api/apiClient'
 
 export interface RoleResponse {
   id: number
@@ -13,4 +13,3 @@ export function listRoles() {
     url: '/api/v1/roles',
   })
 }
-

@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { listProducts, type ProductListItemResponse } from '@/api/productsApi'
+import { listProducts, type ProductListItemResponse } from '@/modules/catalog/api/productsApi'
 import { ApiError } from '@/api/types'
 
 const router = useRouter()
@@ -53,7 +53,7 @@ async function onPageChange(p: number) {
 }
 
 async function openDetail(row: ProductListItemResponse) {
-  await router.push(`/c/products/${row.id}`)
+  await router.push(`/products/${row.id}`)
 }
 
 onMounted(load)

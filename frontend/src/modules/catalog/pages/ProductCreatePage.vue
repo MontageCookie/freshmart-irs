@@ -3,7 +3,7 @@ import { computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 
-import { createProduct, type ProductStatus, type ProductUpsertRequest } from '@/api/productsApi'
+import { createProduct, type ProductStatus, type ProductUpsertRequest } from '@/modules/catalog/api/productsApi'
 import { ApiError } from '@/api/types'
 import { refreshMe, useAuthState } from '@/auth/authStore'
 import { pushToast } from '@/ui/toast'
@@ -47,7 +47,7 @@ function formatError(err: unknown): string {
 }
 
 async function back() {
-  await router.push('/products')
+  await router.push('/manager/products')
 }
 
 async function submit() {
@@ -76,7 +76,7 @@ async function submit() {
       status: form.status,
     })
     pushToast('创建成功', 'info')
-    await router.replace(`/products/${resp.id}`)
+    await router.replace(`/manager/products/${resp.id}`)
   } catch (e) {
     errorText.value = formatError(e)
   } finally {

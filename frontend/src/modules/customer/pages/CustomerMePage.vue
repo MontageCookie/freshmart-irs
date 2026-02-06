@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
 import { refreshMe, useAuthState } from '@/auth/authStore'
 import { ApiError } from '@/api/types'
-import { updateUser } from '@/api/usersApi'
+import { updateUser } from '@/modules/security/api/usersApi'
 
-const router = useRouter()
 const authState = useAuthState()
-const canSeeUsers = computed(() => Boolean(authState.me?.roles?.includes('ADMIN')))
 
 const loading = ref(false)
 const errorText = ref<string | null>(null)
@@ -50,13 +47,6 @@ async function load() {
   } finally {
     loading.value = false
   }
-}
-
-async function goUsers() {
-  if (!canSeeUsers.value) {
-    return
-  }
-  await router.push('/users')
 }
 
 async function saveProfile() {
@@ -130,14 +120,11 @@ onMounted(load)
 
 <template>
   <div class="page">
-    <h2 class="title">我的信息</h2>
+    <h2 class="title">我的信息（顾客端）</h2>
 
     <div class="actions">
       <button class="btn" type="button" :disabled="loading" @click="load">
         {{ loading ? '刷新中...' : '刷新' }}
-      </button>
-      <button class="btn btn--secondary" type="button" :disabled="!canSeeUsers" @click="goUsers">
-        进入用户列表
       </button>
     </div>
 
@@ -147,15 +134,12 @@ onMounted(load)
       <div class="card">
         <div class="card__title">概览</div>
         <div class="row"><span class="k">id</span><span class="v">{{ authState.me?.id ?? '-' }}</span></div>
-        <div class="row">
-          <span class="k">username</span><span class="v">{{ authState.me?.username ?? '-' }}</span>
-        </div>
+        <div class="row"><span class="k">username</span><span class="v">{{ authState.me?.username ?? '-' }}</span></div>
         <div class="row"><span class="k">phone</span><span class="v">{{ authState.me?.phone ?? '-' }}</span></div>
         <div class="row"><span class="k">email</span><span class="v">{{ authState.me?.email ?? '-' }}</span></div>
         <div class="row"><span class="k">status</span><span class="v">{{ authState.me?.status ?? '-' }}</span></div>
         <div class="row">
-          <span class="k">roles</span>
-          <span class="v">{{ authState.me?.roles?.length ? authState.me.roles.join(', ') : '-' }}</span>
+          <span class="k">roles</span><span class="v">{{ authState.me?.roles?.length ? authState.me.roles.join(', ') : '-' }}</span>
         </div>
       </div>
 
@@ -191,12 +175,7 @@ onMounted(load)
         <div class="form">
           <label class="field">
             <span class="field__label">currentPassword *</span>
-            <input
-              v-model="passwordCurrentPassword"
-              class="input"
-              type="password"
-              autocomplete="current-password"
-            />
+            <input v-model="passwordCurrentPassword" class="input" type="password" autocomplete="current-password" />
           </label>
           <label class="field">
             <span class="field__label">newPassword *</span>
@@ -237,11 +216,6 @@ onMounted(load)
   border-radius: 10px;
   padding: 8px 12px;
   cursor: pointer;
-}
-
-.btn--secondary {
-  border-color: rgba(37, 99, 235, 0.3);
-  color: rgba(37, 99, 235, 0.95);
 }
 
 .btn:disabled {

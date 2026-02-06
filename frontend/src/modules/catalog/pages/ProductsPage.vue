@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
 
-import { listProducts, offSaleProduct, type ProductListItemResponse, type ProductStatus } from '@/api/productsApi'
+import { listProducts, offSaleProduct, type ProductListItemResponse, type ProductStatus } from '@/modules/catalog/api/productsApi'
 import { ApiError } from '@/api/types'
 import { refreshMe, useAuthState } from '@/auth/authStore'
 import { pushToast } from '@/ui/toast'
@@ -64,11 +64,11 @@ async function onPageChange(p: number) {
 }
 
 async function goCreate() {
-  await router.push('/products/new')
+  await router.push('/manager/products/new')
 }
 
 async function openDetail(row: ProductListItemResponse) {
-  await router.push(`/products/${row.id}`)
+  await router.push(`/manager/products/${row.id}`)
 }
 
 async function offSale(row: ProductListItemResponse) {

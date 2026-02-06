@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { getProduct, type ProductDetailResponse } from '@/api/productsApi'
+import { getProduct, type ProductDetailResponse } from '@/modules/catalog/api/productsApi'
 import { ApiError } from '@/api/types'
 
 const route = useRoute()
@@ -38,7 +38,7 @@ async function load() {
 }
 
 async function back() {
-  await router.push('/c/products')
+  await router.push('/products')
 }
 
 onMounted(load)

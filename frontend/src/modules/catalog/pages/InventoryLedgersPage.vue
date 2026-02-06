@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
-import { listInventoryLedgers, type InventoryLedgerListItemResponse } from '@/api/inventoryApi'
+import { listInventoryLedgers, type InventoryLedgerListItemResponse } from '@/modules/catalog/api/inventoryApi'
 import { ApiError } from '@/api/types'
 
 const loading = ref(false)

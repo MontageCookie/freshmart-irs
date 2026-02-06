@@ -1,5 +1,5 @@
-import { apiRequest } from './apiClient'
-import type { PageResponse } from './types'
+import { apiRequest } from '@/api/apiClient'
+import type { PageResponse } from '@/api/types'
 import type { ProductStatus } from './productsApi'
 
 export type InventoryBatchStatus = 'AVAILABLE' | 'BLOCKED' | 'EXPIRED'

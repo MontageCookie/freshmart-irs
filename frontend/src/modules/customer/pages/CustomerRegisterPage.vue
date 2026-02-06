@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 
-import { register } from '@/api/authApi'
+import { register } from '@/modules/security/api/authApi'
 import { ApiError } from '@/api/types'
 import { pushToast } from '@/ui/toast'
 
@@ -54,7 +54,7 @@ async function onSubmit() {
       email: emailTrimmed.value ? emailTrimmed.value : null,
     })
     pushToast('注册成功，请登录', 'info')
-    await router.replace('/c/login')
+    await router.replace('/customer/login')
   } catch (e) {
     errorText.value = formatError(e)
   } finally {
@@ -98,7 +98,7 @@ async function onSubmit() {
       </form>
 
       <div class="hint">
-        <div>已有账号？<RouterLink to="/c/login">去登录</RouterLink></div>
+        <div>已有账号？<RouterLink to="/customer/login">去登录</RouterLink></div>
       </div>
     </div>
   </div>

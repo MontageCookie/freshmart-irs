@@ -2,8 +2,8 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { listRoles, type RoleResponse } from '@/api/rolesApi'
-import { createUser } from '@/api/usersApi'
+import { listRoles, type RoleResponse } from '@/modules/security/api/rolesApi'
+import { createUser } from '@/modules/security/api/usersApi'
 import { ApiError } from '@/api/types'
 
 const router = useRouter()
@@ -66,7 +66,7 @@ async function onSubmit() {
       email: email.value.trim() ? email.value.trim() : null,
       roleIds: [...selectedRoleIds.value],
     })
-    await router.replace(`/users/${resp.id}`)
+    await router.replace(`/manager/users/${resp.id}`)
   } catch (e) {
     errorText.value = formatError(e)
   } finally {
@@ -75,7 +75,7 @@ async function onSubmit() {
 }
 
 async function back() {
-  await router.push('/users')
+  await router.push('/manager/users')
 }
 
 onMounted(async () => {
@@ -299,4 +299,3 @@ onMounted(async () => {
   }
 }
 </style>
-

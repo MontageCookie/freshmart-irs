@@ -5,7 +5,7 @@ import {
   getInventorySnapshot,
   type InventoryBatchSnapshotResponse,
   type InventorySnapshotItemResponse,
-} from '@/api/inventoryApi'
+} from '@/modules/catalog/api/inventoryApi'
 import { ApiError } from '@/api/types'
 
 const loading = ref(false)

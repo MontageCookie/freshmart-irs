@@ -2,14 +2,14 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { listRoles, type RoleResponse } from '@/api/rolesApi'
+import { listRoles, type RoleResponse } from '@/modules/security/api/rolesApi'
 import {
   disableUser,
   getUser,
   updateUser,
   updateUserRoles,
   type UserDetailResponse,
-} from '@/api/usersApi'
+} from '@/modules/security/api/usersApi'
 import { ApiError } from '@/api/types'
 
 const router = useRouter()
@@ -96,7 +96,7 @@ async function load() {
 }
 
 async function back() {
-  await router.push('/users')
+  await router.push('/manager/users')
 }
 
 function toggleRole(id: number) {
@@ -279,9 +279,7 @@ onMounted(load)
 
       <div class="card">
         <div class="card__title">禁用用户</div>
-        <div class="tip">
-          语义固定：调用 <span class="mono">DELETE /api/v1/users/{id}</span> 将用户状态置为 DISABLED
-        </div>
+        <div class="tip">语义固定：调用 <span class="mono">DELETE /api/v1/users/{id}</span> 将用户状态置为 DISABLED</div>
         <div class="actions">
           <button
             class="btn btn--danger"
@@ -476,8 +474,7 @@ onMounted(load)
 }
 
 .mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   font-size: 12px;
 }
 

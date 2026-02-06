@@ -21,9 +21,9 @@ setAuthInvalidHandler((err: ApiError) => {
   }
   clearSession()
   const currentRoute = router.currentRoute.value
-  const isCustomerArea = currentRoute.path === '/c' || currentRoute.path.startsWith('/c/')
+  const isManagerArea = currentRoute.path.startsWith('/manager')
   const redirect = currentRoute.fullPath
-  const loginRouteName = isCustomerArea ? 'cLogin' : 'login'
+  const loginRouteName = isManagerArea ? 'login' : 'cLogin'
   if (currentRoute.name !== loginRouteName) {
     router.replace({ name: loginRouteName, query: { redirect } })
   }

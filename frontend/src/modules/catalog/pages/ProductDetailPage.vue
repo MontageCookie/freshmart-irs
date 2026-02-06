@@ -4,7 +4,13 @@ import { useRoute, useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 
-import { getProduct, offSaleProduct, updateProduct, type ProductDetailResponse, type ProductStatus } from '@/api/productsApi'
+import {
+  getProduct,
+  offSaleProduct,
+  updateProduct,
+  type ProductDetailResponse,
+  type ProductStatus,
+} from '@/modules/catalog/api/productsApi'
 import { ApiError } from '@/api/types'
 import { refreshMe, useAuthState } from '@/auth/authStore'
 import { pushToast } from '@/ui/toast'
@@ -81,7 +87,7 @@ async function load() {
 }
 
 async function back() {
-  await router.push('/products')
+  await router.push('/manager/products')
 }
 
 async function save() {

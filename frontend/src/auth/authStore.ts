@@ -1,6 +1,6 @@
 import { computed, reactive } from 'vue'
 
-import { getMe, type MeResponse } from '@/api/authApi'
+import { getMe, type MeResponse } from '@/modules/security/api/authApi'
 import { isAuthInvalidError } from '@/api/types'
 import { clearToken } from './token'
 
